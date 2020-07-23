@@ -41,6 +41,13 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.:
 		// $this->session = \Config\Services::session();
+
+		// Set global database
+		$this->db 			= \Config\Database::connect();
+
+		// Addition Variables
+		$this->data 		= array(); // Store all data that Views will use 
+		$this->alerts 		= array(); // Store all alerts that Views will use
 	}
 
 }

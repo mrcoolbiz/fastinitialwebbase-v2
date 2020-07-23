@@ -8,12 +8,20 @@ if (phpversion() < $minPHPVersion)
 }
 unset($minPHPVersion);
 
+// Fast switching between development and production mode by adding GET value to URL: ?env=p,d
+session_start();
+$env = $_GET['env'];
+if ($env == "d") $_SESSION['env'] = 'development';
+if ($env == "p") $_SESSION['env'] = 'production';
+if ($_SESSION['env'] == '') $_SESSION['env'] = 'production';
+$_SERVER['CI_ENVIRONMENT'] = $_SESSION['env'];
+
 // Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
 
 // Location of the Paths config file.
 // This is the line that might need to be changed, depending on your folder structure.
-$pathsPath = realpath(FCPATH . '../app/Config/Paths.php');
+$pathsPath = realpath(FCPATH . 'app/Config/Paths.php');
 // ^^^ Change this if you move your application folder
 
 /*
