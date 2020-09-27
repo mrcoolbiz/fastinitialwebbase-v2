@@ -8,11 +8,10 @@ if (phpversion() < $minPHPVersion)
 }
 unset($minPHPVersion);
 
-// Fast switching between development and production mode by adding GET value to URL: ?env=p,d
 session_start();
-$env = $_GET['env'];
-if ($env == "d") $_SESSION['env'] = 'development';
-if ($env == "p") $_SESSION['env'] = 'production';
+$env = isset($_GET['env'])?$_GET['env']:"";
+if ($env == "dev") $_SESSION['env'] = 'development';
+if ($env == "pro") $_SESSION['env'] = 'production';
 if ($_SESSION['env'] == '') $_SESSION['env'] = 'production';
 $_SERVER['CI_ENVIRONMENT'] = $_SESSION['env'];
 
